@@ -25,10 +25,24 @@ function clearGrid(){
     allGridElements.forEach(item => item.style.opacity = '0');
 }
 function gridRedraw(){
+    while (true){
     bigstring = prompt('How many rows and columns separated by space? (e.g. 20 20)');
     stringarr = bigstring.split(' ');
     rows = stringarr[0];
     cols = stringarr[1];
+    if(rows > 100 || cols > 100){
+        alert('Please enter two numbers between 1 and 100, separated by a space. Any larger lags the browser.');
+    }
+    else if(rows < 1 || cols < 1){
+        alert('Please enter two numbers between 1 and 100, separated by a space.');
+    }
+    else if(isNaN(rows) || isNaN(cols) || stringarr.length != 2){
+        alert('Please enter two numbers between 1 and 100, separated by a space.');
+    }
+    else{
+        break;
+    }
+    }
     let gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach(item => item.remove());
     makeGrid(rows,cols);
@@ -47,5 +61,4 @@ function changeColor(){
     allGridElements.forEach(darkenColor);
     this.style.opacity = '1';
 }
-
 
