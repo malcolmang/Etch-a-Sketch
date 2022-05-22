@@ -1,5 +1,7 @@
 const container = document.querySelector('#container');
-
+let shadingbool = false;
+let trailbool = true;
+ 
 function makeGrid(rows,cols){
     container.style.setProperty('height', container.clientWidth + 'px');
     container.style.setProperty('--grid-rows', rows);
@@ -20,10 +22,29 @@ const redrawbutton = document.querySelector('#redraw');
 redrawbutton.addEventListener('click', gridRedraw);
 document.querySelector('#reset').addEventListener('click', clearGrid);
 
+document.querySelector('#shading').addEventListener('click', () => {
+    shadingbool = !shadingbool;
+    if (shadingbool){
+        document.querySelector('#shading').innerHTML = 'Shading: On';
+    } else {
+        document.querySelector('#shading').innerHTML = 'Shading: Off';
+    }}
+);
+
+document.querySelector('#trail').addEventListener('click', () => {
+    trailbool = !trailbool;
+    if (trailbool){
+        document.querySelector('#trail').innerHTML = 'Trail: On';
+    } else {
+        document.querySelector('#trail').innerHTML = 'Trail: Off';
+    }
+});
+
 function clearGrid(){
     const allGridElements = document.querySelectorAll('.grid-item');
     allGridElements.forEach(item => item.style.opacity = '0');
 }
+
 function gridRedraw(){
     while (true){
     bigstring = prompt('How many rows and columns separated by space? (e.g. 20 20)');
@@ -57,8 +78,18 @@ function darkenColor(thisitem){
 }
 
 function changeColor(){
-    const allGridElements = document.querySelectorAll('.grid-item');
-    allGridElements.forEach(darkenColor);
-    this.style.opacity = '1';
+    if (shadingbool){
+        this.style.opacity = String(parseFloat(this.style.opacity) + 0.3);
+        if(trailbool){
+            const allGridElements = document.querySelectorAll('.grid-item');
+            allGridElements.forEach(darkenColor);
+        }
+    } else {
+        const allGridElements = document.querySelectorAll('.grid-item');
+        if(trailbool){
+            allGridElements.forEach(darkenColor);
+        }
+        this.style.opacity = '1';
+    }
 }
 
