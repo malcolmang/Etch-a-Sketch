@@ -79,7 +79,7 @@ function darkenColor(thisitem){
 
 function changeColor(){
     if (shadingbool){
-        this.style.opacity = String(parseFloat(this.style.opacity) + 0.3);
+        this.style.opacity = String(parseFloat(this.style.opacity) + 0.05);
         if(trailbool){
             const allGridElements = document.querySelectorAll('.grid-item');
             allGridElements.forEach(darkenColor);
